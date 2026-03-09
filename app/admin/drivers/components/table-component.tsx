@@ -38,7 +38,7 @@ export default function TableComponent({ drivers }: TableComponentProps) {
                                         <span>{driver.email}</span>
                                     </TableCell>
                                     <TableCell>
-                                        ejemplo
+                                        <span>{driver.name || "Sin nombre añadido"}</span>
                                     </TableCell>
                                     <TableCell>
                                         <DropdownMenu>

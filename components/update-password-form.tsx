@@ -63,7 +63,7 @@ export default function UpdatePasswordForm() {
             }
         }
 
-        router.push("/login")
+        router.push("/auth/login")
     }
 
     return (

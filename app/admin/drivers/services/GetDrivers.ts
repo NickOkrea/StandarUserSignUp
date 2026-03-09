@@ -8,7 +8,12 @@ export async function getDrivers(): Promise<Driver[]> {
         const supabase = await createClient();
         const {data, error} = await supabase
             .from('profiles')
-            .select("*")
+            .select(`
+                id,
+                email,
+                rol,
+                user_driver: user_driver!profile_id(name, phone)
+            `)
             .eq('rol', 'chofer')
             .order('email', { ascending: true })
 
@@ -16,7 +21,23 @@ export async function getDrivers(): Promise<Driver[]> {
                 console.error("Error fetching drivers", error);
                 return []
             }
-            return data || [];
+
+            // Transformar los datos para aplanar user_driver
+            const drivers: Driver[] = (data || []).map((item: any) => {
+                const userDriverData = Array.isArray(item.user_driver) 
+                    ? item.user_driver[0] 
+                    : item.user_driver;
+                
+                return {
+                    id: item.id,
+                    email: item.email,
+                    rol: item.rol,
+                    name: userDriverData?.name,
+                    phone: userDriverData?.phone,
+                };
+            });
+
+            return drivers;
     }catch (error){
         console.error("Error in getDrivers", error);
         return [];

@@ -21,13 +21,13 @@ export async function GET(request: Request) {
 		if (type === "recovery") {
 			if (errorCode === "otp_expired") {
 				return NextResponse.redirect(
-					`${origin}/forgot-password?error=El+link+ha+expirado.+Solicita+uno+nuevo.`
+					`${origin}/auth/forgot-password?error=El+link+ha+expirado.+Solicita+uno+nuevo.`
 				);
 			}
-			return NextResponse.redirect(`${origin}/forgot-password?error=El+link+es+invalido.+Solicita+uno+nuevo.`);
+			return NextResponse.redirect(`${origin}/auth/forgot-password?error=El+link+es+invalido.+Solicita+uno+nuevo.`);
 		}
 		// Para otros tipos de callback
-		return NextResponse.redirect(`${origin}/login?error=Link+invalido+o+expirado.`);
+		return NextResponse.redirect(`${origin}/auth/login?error=Link+invalido+o+expirado.`);
 	}
 
 	if (code) {
@@ -71,18 +71,18 @@ export async function GET(request: Request) {
 			}
 
 			// Si no tiene perfil o rol, redirigir al login
-			return NextResponse.redirect(`${origin}/login`);
+			return NextResponse.redirect(`${origin}/auth/login`);
 		} else {
 			// Si hay error pero es un flujo de recuperación de contraseña
 			if (type === "recovery") {
 				console.log("❌ [Callback] Error en recuperación de contraseña:", error);
 				return NextResponse.redirect(
-					`${origin}/forgot-password?error=${encodeURIComponent('El link ha expirado o es inválido. Solicita uno nuevo.')}`
+					`${origin}/auth/forgot-password?error=${encodeURIComponent('El link ha expirado o es inválido. Solicita uno nuevo.')}`
 				);
 			}
 		}
 	}
 
 	// Si hay error, redirigir al login
-	return NextResponse.redirect(`${origin}/login`);
+	return NextResponse.redirect(`${origin}/auth/login`);
 }

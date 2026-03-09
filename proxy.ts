@@ -35,15 +35,15 @@ export default async function proxy(request: NextRequest) {
 		data: { user },
 	} = await supabase.auth.getUser();
 
-	const isAuthPage = request.nextUrl.pathname.startsWith("/login") ||
-		request.nextUrl.pathname.startsWith("/signup");
+	const isAuthPage = request.nextUrl.pathname.startsWith("/auth/login") ||
+		request.nextUrl.pathname.startsWith("/auth/sign-up");
 	const isAdminPage = request.nextUrl.pathname.startsWith("/admin");
 	const isDriverPage = request.nextUrl.pathname.startsWith("/driver");
 	const isDashboardPage = request.nextUrl.pathname.startsWith("/dashboard");
 
 	// Si no está autenticado y trata de acceder a páginas protegidas
 	if (!user && (isAdminPage || isDriverPage || isDashboardPage)) {
-		return NextResponse.redirect(new URL("/login", request.url));
+		return NextResponse.redirect(new URL("/auth/login", request.url));
 	}
 
 	// Si está autenticado, verificar el rol para páginas específicas

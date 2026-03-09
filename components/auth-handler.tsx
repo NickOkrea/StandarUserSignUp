@@ -35,10 +35,10 @@ export default function AuthHandler() {
           console.log(`✅ Sesión establecida para tipo: ${type}`)
           
           // Redirigir a update-password
-          router.push('/update-password')
+          router.push('/auth/update-password')
         } catch (error) {
           console.error('❌ Error al establecer sesión:', error)
-          router.push('/login')
+          router.push('/auth/login')
         }
         return
       }

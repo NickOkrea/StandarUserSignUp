@@ -117,7 +117,7 @@ export default function ForgotPasswordForm({
               <div className="mt-4 text-center text-sm">
                 Ya tienes una cuenta?{" "}
                 <Link
-                  href="/login"
+                  href="/auth/login"
                   className="underline underline-offset-4"
                 >
                   Iniciar sesión

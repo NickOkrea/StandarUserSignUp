@@ -36,7 +36,7 @@ export default function ForgotPasswordForm({
       // Por seguridad, NO verificamos si el email existe (previene enumeración de usuarios)
       // Supabase internamente solo enviará el correo si el email está registrado
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/api/auth/callback?next=/auth/update-password`,
+        redirectTo: `${window.location.origin}/api/auth/callback?type=recovery&next=/auth/update-password`,
       })
       
       // Siempre mostrar éxito, incluso si el email no existe (mejor práctica de seguridad)

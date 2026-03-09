@@ -33,18 +33,18 @@ export async function GET(request: Request) {
 	if (code) {
 		const supabase = await createClient();
 		const { data, error } = await supabase.auth.exchangeCodeForSession(code);
-/* es un flujo de recuperación de contraseña, SIEMPRE redirigir al formulario */
+
+		console.log("🔍 [Callback] exchangeCodeForSession result:", { data: !!data, error });
+
+		if (!error) {
+			// Si es un flujo de recuperación de contraseña, SIEMPRE redirigir al formulario
 			if (type === "recovery") {
 				const redirectPath = next || "/auth/update-password";
 				console.log("✅ [Callback] Flujo de recuperación detectado. Redirigiendo a:", redirectPath);
 				return NextResponse.redirect(`${origin}${redirectPath}`);
 			}
 
-			// Si viene con un `next` (ej: otros flujos
-		console.log("🔍 [Callback] exchangeCodeForSession result:", { data: !!data, error });
-
-		if (!error) {
-			// Si viene con un `next` (ej: reset de contraseña), redirigir ahí
+			// Si viene con un `next` (ej: otros flujos), redirigir ahí
 			if (next) {
 				console.log("✅ [Callback] Redirigiendo a:", next);
 				return NextResponse.redirect(`${origin}${next}`);
@@ -67,14 +67,14 @@ export async function GET(request: Request) {
 					return NextResponse.redirect(`${origin}/admin`);
 				} else if (profile?.rol === "chofer") {
 					return NextResponse.redirect(`${origin}/driver`);
-				}type === "recovery"
+				}
 			}
 
 			// Si no tiene perfil o rol, redirigir al login
-				return NextResponse.redirect(`${origin}/login`);
+			return NextResponse.redirect(`${origin}/login`);
 		} else {
 			// Si hay error pero es un flujo de recuperación de contraseña
-			if (next && next.includes('update-password')) {
+			if (type === "recovery") {
 				console.log("❌ [Callback] Error en recuperación de contraseña:", error);
 				return NextResponse.redirect(
 					`${origin}/forgot-password?error=${encodeURIComponent('El link ha expirado o es inválido. Solicita uno nuevo.')}`

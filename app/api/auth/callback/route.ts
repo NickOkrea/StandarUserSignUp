@@ -1,0 +1,75 @@
+import { createClient } from "@/lib/supabase/server";
+import { NextResponse } from "next/server";
+
+export async function GET(request: Request) {
+	const requestUrl = new URL(request.url);
+	const code = requestUrl.searchParams.get("code");
+	const next = requestUrl.searchParams.get("next");
+	const errorCode = requestUrl.searchParams.get("error_code");
+	const origin = requestUrl.origin;
+
+	console.log("🔍 [Callback] URL completa:", request.url);
+	console.log("🔍 [Callback] code:", code);
+	console.log("🔍 [Callback] next:", next);
+	console.log("🔍 [Callback] errorCode:", errorCode);
+
+	// Si Supabase devuelve un error (link expirado, ya usado, etc.)
+	if (errorCode) {
+		console.log("❌ [Callback] Error detectado:", errorCode);
+		if (errorCode === "otp_expired") {
+			return NextResponse.redirect(
+				`${origin}/forgot-password?error=El+link+ha+expirado.+Solicita+uno+nuevo.`
+			);
+		}
+		return NextResponse.redirect(`${origin}/forgot-password?error=El+link+es+invalido.+Solicita+uno+nuevo.`);
+	}
+
+	if (code) {
+		const supabase = await createClient();
+		const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+
+		console.log("🔍 [Callback] exchangeCodeForSession result:", { data: !!data, error });
+
+		if (!error) {
+			// Si viene con un `next` (ej: reset de contraseña), redirigir ahí
+			if (next) {
+				console.log("✅ [Callback] Redirigiendo a:", next);
+				return NextResponse.redirect(`${origin}${next}`);
+			}
+
+			// Verificar el rol del usuario en profiles
+			const {
+				data: { user },
+			} = await supabase.auth.getUser();
+
+			if (user) {
+				const { data: profile } = await supabase
+					.from("profiles")
+					.select("rol")
+					.eq("id", user.id)
+					.single();
+
+				// Redirigir según el rol
+				if (profile?.rol === "administrador") {
+					return NextResponse.redirect(`${origin}/admin`);
+				} else if (profile?.rol === "chofer") {
+					return NextResponse.redirect(`${origin}/driver`);
+				}
+			}
+
+			// Si no tiene perfil o rol, redirigir al login
+				return NextResponse.redirect(`${origin}/login`);
+		} else {
+			// Si hay error pero es un flujo de recuperación de contraseña
+			if (next && next.includes('update-password')) {
+				console.log("❌ [Callback] Error en recuperación de contraseña:", error);
+				return NextResponse.redirect(
+					`${origin}/forgot-password?error=${encodeURIComponent('El link ha expirado o es inválido. Solicita uno nuevo.')}`
+				);
+			}
+		}
+	}
+
+	// Si hay error, redirigir al login
+	return NextResponse.redirect(`${origin}/login`);
+}

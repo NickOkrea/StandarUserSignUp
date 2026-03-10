@@ -1,3 +1,5 @@
+"use client"
+
 import { Driver } from "../models/Driver";
 import TableComponent from "./table-component";
 
@@ -7,8 +9,6 @@ interface DataTableDriversProps {
 
 
 export default function DataTableDrivers({ drivers }: DataTableDriversProps) {
-
-
 
     return (
         <div>

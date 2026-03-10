@@ -2,14 +2,32 @@ import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ThemeSwitcher } from "@/components/ui/theme-switcher";
-import { ThemeProvider } from "next-themes";
+import { getAgencies } from "@/lib/services/agency";
+import { createClient } from "@/lib/supabase/server";
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+
+    const agencies = await getAgencies();
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    let currentAgencyId = "";
+    if (user) {
+        const { data: profile } = await supabase
+            .from('profiles')
+            .select('agency_id')
+            .eq('id', user.id)
+            .single();
+        if (profile?.agency_id) {
+            currentAgencyId = profile.agency_id;
+        }
+    }
+
     return (
         <>
             <SidebarProvider>
                 <div className="relative flex h-screen w-full">
-                    <AppSidebar />
+                    <AppSidebar agencies={agencies} currentAgencyId={currentAgencyId} />
                     <SidebarInset>
                         <header className="flex h-16  shrink-0 items-center justify-between gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
                             <div className="flex items-center gap-2 px-4">

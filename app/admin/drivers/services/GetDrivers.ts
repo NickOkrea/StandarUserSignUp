@@ -6,6 +6,24 @@ import { Driver } from "../models/Driver";
 export async function getDrivers(): Promise<Driver[]> {
     try{
         const supabase = await createClient();
+
+        // 1. Obtener quién es el administrador actual
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return [];
+
+        // 2. Obtener a qué agencia pertenece actualmente el admin
+        const { data: adminProfile, error: profileError } = await supabase
+            .from('profiles')
+            .select('agency_id')
+            .eq('id', user.id)
+            .single();
+
+        if (profileError || !adminProfile?.agency_id) {
+            console.error("Admin doesn't have an agency_id or error fetching profile");
+            return [];
+        }
+
+        // 3. Obtener solo los choferes que pertenezcan a esa misma agencia
         const {data, error} = await supabase
             .from('profiles')
             .select(`
@@ -15,6 +33,7 @@ export async function getDrivers(): Promise<Driver[]> {
                 user_driver: user_driver!profile_id(name, phone)
             `)
             .eq('rol', 'chofer')
+            .eq('agency_id', adminProfile.agency_id) // <- Filtro clave aquí
             .order('email', { ascending: true })
 
             if(error){

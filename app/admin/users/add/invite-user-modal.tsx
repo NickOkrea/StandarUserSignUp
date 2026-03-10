@@ -5,6 +5,8 @@ import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { RolType } from '@/lib/models/Profile'
 import { useState, useEffect } from 'react'
+import { getAgencies } from '@/lib/services/agency'
+import { Button } from '@/components/ui/button'
 
 interface Agency {
   id: string
@@ -31,11 +33,8 @@ export function InviteUserModal() {
   async function loadAgencies() {
     setLoadingAgencies(true)
     try {
-      const res = await fetch('/api/agencies')
-      if (res.ok) {
-        const data = await res.json()
-        setAgencies(data)
-      }
+      const data = await getAgencies()
+      setAgencies(data)
     } catch (error) {
       console.error('Error cargando agencias:', error)
     } finally {
@@ -89,17 +88,17 @@ export function InviteUserModal() {
 
   return (
     <>
-      <button
+      <Button
         onClick={() => setIsOpen(true)}
-        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+        className="px-4 py-2 rounded-lg"
       >
-        + Invitar Usuario
-      </button>
+        Invitar Usuario
+      </Button>
 
       {isOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" >
-          <div className="bg-white rounded-lg p-6 w-full max-w-md">
-            <h2 className="text-xl font-bold mb-4">Invitar Usuario</h2>
+        <div className="fixed inset-0 bg-black/20 backdrop-blur-xs flex items-center justify-center z-50" >
+          <div className="bg-accent rounded-lg p-6 w-full max-w-md">
+            <h2 className="text-xl font-bold mb-4">Enviar Solicitud al Usuario</h2>
             
             <form onSubmit={handleInvite}>
               <div className="mb-4">
@@ -163,21 +162,23 @@ export function InviteUserModal() {
               )}
 
               <div className="flex gap-2">
-                <button
+                <Button
                   type="button"
                   onClick={() => setIsOpen(false)}
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                  className="flex-1 px-4 py-2 rounded-lg"
+                  variant="destructive"
                   disabled={loading}
                 >
                   Cancelar
-                </button>
-                <button
+                </Button>
+                <Button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                  className="flex-1 px-4 py-2 rounded-lg"
+                  variant="outline"
                   disabled={loading}
                 >
                   {loading ? 'Enviando...' : 'Enviar Invitación'}
-                </button>
+                </Button>
               </div>
             </form>
           </div>

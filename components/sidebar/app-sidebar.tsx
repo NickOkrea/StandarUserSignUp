@@ -6,8 +6,14 @@ import {
   BookOpen,
   Command,
   GalleryVerticalEnd,
+  IdCardLanyard,
   Settings2,
   SquareTerminal,
+  User,
+  Users,
+  Users2,
+  Users2Icon,
+  UsersIcon,
 } from "lucide-react"
 
 import { NavMain } from "@/components/sidebar/nav-main"
@@ -20,6 +26,9 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar"
+import { Agency } from "@/lib/services/agency"
+
+
 
 // This is sample data.
 const data = {
@@ -28,33 +37,17 @@ const data = {
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
+  
   navMain: [
     {
       title: "Usuarios",
       url: "/admin/users",
-      icon: SquareTerminal,
+      icon: UsersIcon,
     },
     {
       title: "Conductores",
       url: "/admin/drivers",
-      icon: BookOpen,
+      icon: IdCardLanyard,
     },
     {
       title: "Settings",
@@ -65,12 +58,17 @@ const data = {
   ],
 }
 
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  agencies: Agency[];
+  currentAgencyId?: string;
+}
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+
+export function AppSidebar({ agencies, currentAgencyId, ...props }: AppSidebarProps) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <TeamSwitcher agencies={agencies} currentAgencyId={currentAgencyId || ""} />
         
       </SidebarHeader>
       <SidebarContent>

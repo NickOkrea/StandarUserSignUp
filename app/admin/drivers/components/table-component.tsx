@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -25,14 +27,14 @@ export default function TableComponent({ drivers }: TableComponentProps) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {/* {drivers.length === 0 ? (
+                        {drivers.length === 0 ? (
                             <TableRow>
                                 <TableCell>
                                     No hay conductores disponibles
                                 </TableCell>
                             </TableRow>
-                        ) : ( */}
-                        { drivers.map((driver) => (
+                        ) : ( 
+                        drivers.map((driver) => (
                                 <TableRow key={driver.id}>
                                     <TableCell>
                                         <span>{driver.email}</span>
@@ -50,7 +52,7 @@ export default function TableComponent({ drivers }: TableComponentProps) {
                                             <DropdownMenuContent>
                                                 <DropdownMenuLabel>Acciones</DropdownMenuLabel>
                                                 <DropdownMenuSeparator/>
-                                                <DropdownMenuItem>
+                                                <DropdownMenuItem asChild>
                                                     <Link href={`/admin/drivers/edit/${driver.id}`}>
                                                     Editar conductor
                                                     </Link>
@@ -62,8 +64,8 @@ export default function TableComponent({ drivers }: TableComponentProps) {
                                         </DropdownMenu>
                                     </TableCell>
                                 </TableRow>
-                            ))}
-                        {/* )} */}
+                            ))
+                        )} 
                     </TableBody>
                 </Table>
             </CardContent>

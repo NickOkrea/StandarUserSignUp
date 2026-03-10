@@ -2,21 +2,19 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { Driver } from "../models/Driver";
+import { getCurrentUser, getCurrentProfile } from "@/lib/services/auth";
 
 export async function getDrivers(): Promise<Driver[]> {
     try{
-        const supabase = await createClient();
+        const [supabase, { data: { user } }] = await Promise.all([
+            createClient(),
+            getCurrentUser()
+        ]);
 
-        // 1. Obtener quién es el administrador actual
-        const { data: { user } } = await supabase.auth.getUser();
         if (!user) return [];
 
         // 2. Obtener a qué agencia pertenece actualmente el admin
-        const { data: adminProfile, error: profileError } = await supabase
-            .from('profiles')
-            .select('agency_id')
-            .eq('id', user.id)
-            .single();
+        const { data: adminProfile, error: profileError } = await getCurrentProfile(user.id);
 
         if (profileError || !adminProfile?.agency_id) {
             console.error("Admin doesn't have an agency_id or error fetching profile");

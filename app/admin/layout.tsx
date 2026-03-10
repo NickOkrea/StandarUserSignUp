@@ -3,21 +3,18 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ThemeSwitcher } from "@/components/ui/theme-switcher";
 import { getAgencies } from "@/lib/services/agency";
-import { createClient } from "@/lib/supabase/server";
+import { getCurrentUser, getCurrentProfile } from "@/lib/services/auth";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
 
-    const agencies = await getAgencies();
-    const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+    const [agencies, { data: { user } }] = await Promise.all([
+        getAgencies(),
+        getCurrentUser()
+    ]);
 
     let currentAgencyId = "";
     if (user) {
-        const { data: profile } = await supabase
-            .from('profiles')
-            .select('agency_id')
-            .eq('id', user.id)
-            .single();
+        const { data: profile } = await getCurrentProfile(user.id);
         if (profile?.agency_id) {
             currentAgencyId = profile.agency_id;
         }

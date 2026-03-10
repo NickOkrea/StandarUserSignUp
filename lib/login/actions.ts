@@ -19,17 +19,30 @@ export async function Login(_prevState: unknown, formData: FormData) {
         return { error: error.message }
     }
 
-    // Obtener el rol del usuario para redirigir correctamente
-    const { data: profile } = await supabase
-        .from("profiles")
-        .select("rol")
-        .eq("id", data.user.id)
-        .single();
+    // Buscamos si el usuario ya tiene su rol guardado en los metadatos
+    let rol = data.user.user_metadata?.rol;
+
+    // Si no lo tiene cargado, lo buscamos en BD y lo inyectamos al JWT
+    if (!rol) {
+        const { data: profile } = await supabase
+            .from("profiles")
+            .select("rol")
+            .eq("id", data.user.id)
+            .single();
+        
+        if (profile?.rol) {
+            rol = profile.rol;
+            // Guardamos el rol permanentemente dentro del usuario (Token de sesión)
+            await supabase.auth.updateUser({
+                data: { rol: profile.rol }
+            });
+        }
+    }
 
     // Redirigir según el rol
-    if (profile?.rol === "administrador") {
+    if (rol === "administrador") {
         redirect('/admin')
-    } else if (profile?.rol === "chofer") {
+    } else if (rol === "chofer") {
         redirect('/driver')
     } else {
         redirect('/dashboard')

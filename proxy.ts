@@ -48,13 +48,19 @@ export default async function proxy(request: NextRequest) {
 
 	// Si está autenticado y necesita verificación de rol (rutas protegidas o redirección desde auth)
 	if (user && (isAdminPage || isDriverPage || isAuthPage)) {
-		const { data: profile } = await supabase
-			.from("profiles")
-			.select("rol")
-			.eq("id", user.id)
-			.single();
+		// Buscamos el rol primero en los metadatos del usuario (¡Tiempo de respuesta 0ms extra!)
+		let rol = user.user_metadata?.rol;
 
-		const rol = profile?.rol;
+		// Fallback: Si el usuario aún no tiene el rol en sus metadatos (ej: usuarios muy antiguos), consultamos la BD
+		if (!rol) {
+			const { data: profile } = await supabase
+				.from("profiles")
+				.select("rol")
+				.eq("id", user.id)
+				.single();
+
+			rol = profile?.rol;
+		}
 
 		if (isAdminPage || isDriverPage) {
 			// Si no tiene un rol válido, evitar el loop redirigiendo a dashboard

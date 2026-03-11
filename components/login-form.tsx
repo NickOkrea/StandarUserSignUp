@@ -8,16 +8,24 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { useActionState } from "react"
+import { useActionState, useEffect } from "react"
 import { Login } from "@/lib/login/actions"
+import { useRouter } from "next/navigation"
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
 
-
+  const router = useRouter()
   const [state, formAction] = useActionState(Login, null)
+  
+  // ✅ Redirect en el cliente cuando el login es exitoso
+  useEffect(() => {
+    if (state?.success && state?.redirectTo) {
+      router.push(state.redirectTo)
+    }
+  }, [state, router])
   
   return (
     <form action={formAction} className={cn("flex flex-col gap-6", className)} {...props}>

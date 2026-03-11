@@ -2,30 +2,22 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { Profile } from "@/lib/models/Profile";
-import { getCurrentUser, getCurrentProfile } from "@/lib/services/auth";
 
-export async function getProfiles(): Promise<Profile[]> {
+// ✅ Recibe agencyId directamente - sin consultas duplicadas
+export async function getProfiles(agencyId: string): Promise<Profile[]> {
     try{
-        const [supabase, { data: { user } }] = await Promise.all([
-            createClient(),
-            getCurrentUser()
-        ]);
-
-        if (!user) return [];
-
-        // 2. Obtener a qué agencia pertenece actualmente el admin
-        const { data: adminProfile, error: profileError } = await getCurrentProfile(user.id);
-
-        if (profileError || !adminProfile?.agency_id) {
-            console.error("Admin doesn't have an agency_id or error fetching profile");
+        if (!agencyId) {
+            console.error("No agency_id provided");
             return [];
         }
 
-        // 3. Obtener los perfiles (usuarios) que pertenezcan a esa misma agencia
+        const supabase = await createClient();
+
+        // ✅ Una sola consulta - el agencyId ya viene del layout
         const {data, error} = await supabase
             .from('profiles')
             .select('*')
-            .eq('agency_id', adminProfile.agency_id)
+            .eq('agency_id', agencyId)
             .order('email', { ascending: true })
 
         if(error){

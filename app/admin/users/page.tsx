@@ -3,11 +3,18 @@ import { ResendInviteButton } from './components/resend-invite-button'
 import { Profile } from '@/lib/models/Profile'
 import DataTableUsers from './components/data-table-users'
 import { getProfiles } from './services/GetProfiles'
+import { getCurrentUser, getCurrentProfile } from '@/lib/services/auth'
 
 export default async function UserPage() {
+    // ✅ Obtener datos una sola vez (no dentro del servicio)
+    const { data: { user } } = await getCurrentUser();
     
-    const profiles = await getProfiles()
+    if (!user) return <div>No autorizado</div>;
     
+    const { data: profile } = await getCurrentProfile(user.id);
+    const agencyId = profile?.agency_id || '';
+    
+    const profiles = await getProfiles(agencyId);
 
     return (
         <div className="p-3">

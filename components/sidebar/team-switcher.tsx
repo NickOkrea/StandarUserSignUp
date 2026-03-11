@@ -71,15 +71,19 @@ export function TeamSwitcher({agencies, currentAgencyId}: TeamSwitcherProps) {
                 onClick={async () => {
                   setActiveTeam(agency);
                   try {
-                    // Llamamos al Server Action directamente como a una función
+                    // ✅ Actualizar la agencia en BD
                     const res = await switchAgencyAction(agency.id);
-                    if (res.error) {
+                    if (res.success) {
+                      // ✅ Refrescar para obtener los datos de la nueva agencia
+                      router.refresh();
+                    } else {
                       console.error("Error switching agency:", res.error);
+                      // Revertir el cambio visual si falló
+                      setActiveTeam(agencies.find(a => a.id === currentAgencyId) || agencies[0]);
                     }
-                    // revalidatePath del Server Action ya actualiza el servidor,
-                    // pero podemos dejar router.refresh() vacio o quitarlo. Por ahora no hace falta fetch manual!
                   } catch (error) {
                     console.error("Error al ejecutar action:", error);
+                    setActiveTeam(agencies.find(a => a.id === currentAgencyId) || agencies[0]);
                   }
                 }}
                 className="gap-2 p-2"

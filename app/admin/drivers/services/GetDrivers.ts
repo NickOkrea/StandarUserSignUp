@@ -2,26 +2,18 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { Driver } from "../models/Driver";
-import { getCurrentUser, getCurrentProfile } from "@/lib/services/auth";
 
-export async function getDrivers(): Promise<Driver[]> {
+// ✅ Recibe agencyId directamente - sin consultas duplicadas
+export async function getDrivers(agencyId: string): Promise<Driver[]> {
     try{
-        const [supabase, { data: { user } }] = await Promise.all([
-            createClient(),
-            getCurrentUser()
-        ]);
-
-        if (!user) return [];
-
-        // 2. Obtener a qué agencia pertenece actualmente el admin
-        const { data: adminProfile, error: profileError } = await getCurrentProfile(user.id);
-
-        if (profileError || !adminProfile?.agency_id) {
-            console.error("Admin doesn't have an agency_id or error fetching profile");
+        if (!agencyId) {
+            console.error("No agency_id provided");
             return [];
         }
 
-        // 3. Obtener solo los choferes que pertenezcan a esa misma agencia
+        const supabase = await createClient();
+
+        // ✅ Una sola consulta - el agencyId ya viene del layout
         const {data, error} = await supabase
             .from('profiles')
             .select(`
@@ -31,7 +23,7 @@ export async function getDrivers(): Promise<Driver[]> {
                 user_driver: user_driver!profile_id(name, phone)
             `)
             .eq('rol', 'chofer')
-            .eq('agency_id', adminProfile.agency_id) // <- Filtro clave aquí
+            .eq('agency_id', agencyId)
             .order('email', { ascending: true })
 
             if(error){

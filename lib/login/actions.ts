@@ -1,7 +1,6 @@
 "use server"
 
 import { createClient } from "../supabase/server";
-import { redirect } from "next/navigation";
 
 export async function Login(_prevState: unknown, formData: FormData) {
     
@@ -19,32 +18,23 @@ export async function Login(_prevState: unknown, formData: FormData) {
         return { error: error.message }
     }
 
-    // Buscamos si el usuario ya tiene su rol guardado en los metadatos
-    let rol = data.user.user_metadata?.rol;
+    // ✅ Obtener el rol directamente de la BD (mucho más rápido)
+    const { data: profile } = await supabase
+        .from("profiles")
+        .select("rol")
+        .eq("id", data.user.id)
+        .single();
+    
+    const rol = profile?.rol;
 
-    // Si no lo tiene cargado, lo buscamos en BD y lo inyectamos al JWT
-    if (!rol) {
-        const { data: profile } = await supabase
-            .from("profiles")
-            .select("rol")
-            .eq("id", data.user.id)
-            .single();
-        
-        if (profile?.rol) {
-            rol = profile.rol;
-            // Guardamos el rol permanentemente dentro del usuario (Token de sesión)
-            await supabase.auth.updateUser({
-                data: { rol: profile.rol }
-            });
-        }
-    }
-
-    // Redirigir según el rol
+    // ✅ Devolver la ruta en lugar de hacer redirect
+    // Esto evita esperar a que el layout del admin se cargue
+    let redirectTo = '/dashboard';
     if (rol === "administrador") {
-        redirect('/admin')
+        redirectTo = '/admin';
     } else if (rol === "chofer") {
-        redirect('/driver')
-    } else {
-        redirect('/dashboard')
+        redirectTo = '/driver';
     }
+
+    return { success: true, redirectTo };
 }

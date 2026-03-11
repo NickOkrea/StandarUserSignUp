@@ -1,10 +1,17 @@
 import DataTableDrivers from "./components/data-table-drivers";
 import { getDrivers } from "./services/GetDrivers";
+import { getCurrentUser, getCurrentProfile } from "@/lib/services/auth";
 
 export default async function DriversPage() {
-
-    const drivers = await getDrivers();
-
+    // ✅ Obtener datos una sola vez (no dentro del servicio)
+    const { data: { user } } = await getCurrentUser();
+    
+    if (!user) return <div>No autorizado</div>;
+    
+    const { data: profile } = await getCurrentProfile(user.id);
+    const agencyId = profile?.agency_id || '';
+    
+    const drivers = await getDrivers(agencyId);
 
     return (
         <div className="p-3">

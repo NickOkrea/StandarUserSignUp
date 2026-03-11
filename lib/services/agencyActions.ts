@@ -27,8 +27,10 @@ export async function switchAgencyAction(agency_id: string): Promise<{ success: 
         return { success: false, error: error.message };
     }
 
-    // Al usar revalidatePath automatizamos el refresco de los datos del servidor para toda la ruta de admin
-    revalidatePath("/admin", "layout");
+    // ✅ Revalidar solo las páginas específicas que dependen de agency_id
+    // No revalidamos el layout para evitar recargar getAgencies() innecesariamente
+    revalidatePath("/admin/users", "page");
+    revalidatePath("/admin/drivers", "page");
 
     return { success: true };
 }

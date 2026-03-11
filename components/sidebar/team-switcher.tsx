@@ -26,6 +26,7 @@ interface TeamSwitcherProps {
   currentAgencyId: string;
 }
 
+
 export function TeamSwitcher({agencies, currentAgencyId}: TeamSwitcherProps) { 
   const { isMobile } = useSidebar()
   const router = useRouter()
@@ -57,14 +58,14 @@ export function TeamSwitcher({agencies, currentAgencyId}: TeamSwitcherProps) {
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg flex flex-col gap-1"
             align="start"
             side={isMobile ? "bottom" : "right"}
             sideOffset={4}
           >
             <DropdownMenuLabel className="text-muted-foreground text-xs">
               Agencias
-                        </DropdownMenuLabel>
+            </DropdownMenuLabel>
             {agencies.map((agency) => (
               <DropdownMenuItem
                 key={agency.id}
@@ -86,7 +87,7 @@ export function TeamSwitcher({agencies, currentAgencyId}: TeamSwitcherProps) {
                     setActiveTeam(agencies.find(a => a.id === currentAgencyId) || agencies[0]);
                   }
                 }}
-                className="gap-2 p-2"
+                className={`gap-2 p-2 ${activeTeam.id === agency.id ? "bg-sidebar-accent text-sidebar-accent-foreground" : ""}`}
               >
                 <div className="flex size-6 items-center justify-center rounded-md border">
                   <Warehouse className="size-3.5 shrink-0" />

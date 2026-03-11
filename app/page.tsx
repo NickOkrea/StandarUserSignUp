@@ -1,9 +1,50 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import AuthHandler from "@/components/auth-handler"
+import { createClient } from "@/lib/supabase/client"
 
 export default function Home() {
+  const router = useRouter()
+  const [user, setUser] = useState<any>(null)
+  const [userRole, setUserRole] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      
+      if (user) {
+        setUser(user)
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('rol')
+          .eq('id', user.id)
+          .single()
+        
+        if (profile) {
+          setUserRole(profile.rol)
+        }
+      }
+      setLoading(false)
+    }
+
+    checkUser()
+  }, [])
+
+  const handleDashboardClick = () => {
+    if (userRole === 'administrador') {
+      router.push('/admin')
+    } else if (userRole === 'chofer') {
+      router.push('/driver')
+    } else {
+      router.push('/dashboard')
+    }
+  }
+
   return (
     <>
       <AuthHandler />
@@ -26,19 +67,35 @@ export default function Home() {
             </p>
           </div>
           <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-            <a
-              className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-              href="/auth/login"
-            >
-              <Image
-                className="dark:invert"
-                src="/vercel.svg"
-                alt="Vercel logomark"
-                width={16}
-                height={16}
-              />
-              Iniciar Sesión
-            </a>
+            {!loading && user ? (
+              <button
+                onClick={handleDashboardClick}
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[200px]"
+              >
+                <Image
+                  className="dark:invert"
+                  src="/vercel.svg"
+                  alt="Vercel logomark"
+                  width={16}
+                  height={16}
+                />
+                Ir al Panel
+              </button>
+            ) : (
+              <a
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
+                href="/auth/login"
+              >
+                <Image
+                  className="dark:invert"
+                  src="/vercel.svg"
+                  alt="Vercel logomark"
+                  width={16}
+                  height={16}
+                />
+                Iniciar Sesión
+              </a>
+            )}
           </div>
         </main>
       </div>

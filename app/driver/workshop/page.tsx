@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Field, FieldLabel } from "@/components/ui/field";
@@ -14,17 +15,19 @@ import { Textarea } from "@/components/ui/textarea";
 
 
 
+
 export default function WorkshopPage(){
     return (
         <div className="w-full h-screen flex flex-col gap-10 items-center p-3">
             <Card className="w-full">
                 <Tabs className="p-2" defaultValue="client">
-                    <TabsList className="grid grid-cols-4 flex-2 lg:grid-cols-5">
+                    <TabsList className="grid grid-cols-4 flex-2 lg:grid-cols-7">
                         <TabsTrigger value="client">Cliente</TabsTrigger>
                         <TabsTrigger value="motorcycle-condition">Condiciones</TabsTrigger>
                         <TabsTrigger value="parts">Piezas</TabsTrigger>
-                        <TabsTrigger value="diagnostic">Aprobación</TabsTrigger>
+                        <TabsTrigger value="approval">Aprobación</TabsTrigger>
                         <TabsTrigger value="status">Estados</TabsTrigger>
+                        <TabsTrigger className="col-span-2" value="end-delivery">Finaliza entrega</TabsTrigger>
                     </TabsList>
 
                       
@@ -438,6 +441,112 @@ export default function WorkshopPage(){
                             </div>
                         </form>
                     </TabsContent>
+
+                    <TabsContent value="approval">
+                        <form>
+                            <div className="flex flex-col gap-4">
+
+                                <div className="flex flex-col gap-2">
+                                    <Badge variant="secondary">Fechas</Badge>
+                                    <div className="grid grid-cols-1 gap-2">
+                                        <Card className="p-3 flex flex-col lg:flex-row">
+                                            <Field className="lg:w-1/2">
+                                                <FieldLabel>Fecha recepcion de moto</FieldLabel>
+                                                <Input placeholder="fecha de recepcion de moto automatica"></Input>
+                                            </Field>
+                                        </Card>
+                                    </div>
+                                </div> 
+
+                                <div className="flex flex-col gap-2">
+                                    <Badge variant="secondary">Aprobación</Badge>
+                                    <div className="grid grid-cols-1 gap-2">
+                                        <Card className="p-3 flex flex-col lg:flex-row">
+                                            <Field>
+                                                <FieldLabel>Firma prestador servicio</FieldLabel>
+                                                <Input placeholder="firma del prestador de servicio"></Input>
+                                            </Field>
+                                            <Field>
+                                                <FieldLabel>Firma cliente</FieldLabel>
+                                                <Input placeholder="firma del cliente"></Input>
+                                            </Field>
+                                        </Card>
+                                    </div>
+                                </div> 
+                            </div>
+                        </form>
+                    </TabsContent>
+
+                    <TabsContent value="status">
+                        <div className="flex items-center justify-center p-10 w-full">
+                            <form>
+                                <dl className="grid grid-cols-1 gap-4 lg:grid-cols-4">
+                                    <Card className="p-6 relative">
+                                        <dt className="text-sm font-medium text-muted-foreground">Recepción de moto</dt>
+                                        <dd className="tabular-nums tabular-nums text-2xl font-semibold text-foreground">Moto recibida</dd>
+                                        <div className="group relative mt-6 flex items-center justify-center rounded">
+                                            <div className="flex items-center">
+                                                <Button>Enviar a reparación</Button>
+                                            </div>
+                                        </div>    
+                                    </Card>
+
+                                    <Card className="p-6 relative">
+                                        <dt className="text-sm font-medium text-muted-foreground">Proceso de reparación</dt>
+                                        <dd className="tabular-nums tabular-nums text-2xl font-semibold text-foreground">En reparación</dd>
+                                        <div className="group relative mt-6 flex items-center justify-center rounded">
+                                            <div className="flex items-center">
+                                                <Button>Marcar como lista</Button>
+                                            </div>
+                                        </div>    
+                                    </Card>
+
+                                    <Card className="p-6 relative">
+                                        <dt className="text-sm font-medium text-muted-foreground">Lista para entrega</dt>
+                                        <dd className="tabular-nums tabular-nums text-2xl font-semibold text-foreground">Por entregar</dd>
+                                        <div className="group relative mt-6 flex items-center justify-center rounded">
+                                            <div className="flex items-center">
+                                                <Button>Confirmar entrega</Button>
+                                            </div>
+                                        </div>    
+                                    </Card>
+
+                                    <Card className="p-6 relative">
+                                        <dt className="text-sm font-medium text-muted-foreground">Entregada finalizada</dt>
+                                        <dd className="tabular-nums tabular-nums text-2xl font-semibold text-foreground">Moto entregada</dd>
+                                    </Card>
+
+                                </dl>
+                            </form>
+                        </div>
+
+                    </TabsContent>
+
+                    <TabsContent value="end-delivery">
+                        <form>
+                            <div className="flex flex-col gap-4">
+
+                                <div className="flex flex-col gap-2">
+                                    <Badge variant="secondary">Finalizar entrega</Badge>
+                                    <div className="grid grid-cols-1 gap-2">
+                                        <Card className="p-3 flex flex-col lg:flex-row">
+                                            <Field>
+                                                <FieldLabel>Recibo cliente</FieldLabel>
+                                                <Input placeholder="recibo del cliente"></Input>
+                                            </Field>
+                                            <Field>
+                                                <FieldLabel>Fecha entrega de moto</FieldLabel>
+                                                <Input placeholder="fecha entrega de moto automatico al momento de guardar"></Input>
+                                            </Field>
+                                        </Card>
+                                    </div>
+                                    
+                                </div>
+
+                            </div>
+                        </form>
+                    </TabsContent>
+
                     </div>
                 </Tabs>
 

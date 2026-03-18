@@ -27,9 +27,9 @@ export default async function DriverPanel(){
 
     return (
         <div className="w-full h-screen flex flex-col gap-10 items-center justify-between p-4">
-            Panel de chofer
+            Panel de taller
             <div className="">
-                <Link href="/driver/workshop">
+                <Link href="/workshop/add">
                     <Button>
                         + Agregar moto a taller
                     </Button>

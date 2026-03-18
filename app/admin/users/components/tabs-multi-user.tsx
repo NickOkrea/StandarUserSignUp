@@ -20,7 +20,8 @@ export default function TabsMultiUser({profiles}: TabsMultiUserProps) {
             <div className=" flex flex-col lg:flex-row justify-between gap-2 mb-4">
             <TabsList >
                 <TabsTrigger value='administrador'>Administradores</TabsTrigger>
-                <TabsTrigger value='chofer'>Conductores</TabsTrigger>
+                <TabsTrigger value='chofer'>Mecánicos</TabsTrigger>
+                <TabsTrigger value='vendedor'>Vendedores</TabsTrigger>
             </TabsList>
             <Input className="w-1/2 lg:w-1/4" placeholder="Buscar..." />
             </div>

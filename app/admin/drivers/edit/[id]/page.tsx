@@ -15,7 +15,7 @@ export default async function EditDriverPage({ params }: EditDriverPageProps) {
     return (
         <div className="p-3">
             <div className="flex items-center mb-6">
-                <h1 className="text-3xl font-bold">Editar Conductor</h1>
+                <h1 className="text-3xl font-bold">Editar Mecánico</h1>
             </div>
             <DriverForm driver={driver}/>
         </div>

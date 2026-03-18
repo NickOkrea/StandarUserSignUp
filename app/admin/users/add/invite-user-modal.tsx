@@ -120,7 +120,7 @@ export function InviteUserModal() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value='administrador'>Administrador</SelectItem>
-                    <SelectItem value='chofer'>Chofer</SelectItem>
+                    <SelectItem value='chofer'>Mecánico</SelectItem>
                     <SelectItem value='vendedor'>Vendedor</SelectItem>
                   </SelectContent>
                 </Select>

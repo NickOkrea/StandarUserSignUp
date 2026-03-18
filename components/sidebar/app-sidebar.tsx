@@ -9,11 +9,15 @@ import {
   IdCardLanyard,
   Settings2,
   SquareTerminal,
+  ToolboxIcon,
+  ToolCase,
+  ToolCaseIcon,
   User,
   Users,
   Users2,
   Users2Icon,
   UsersIcon,
+  Wrench,
 } from "lucide-react"
 
 import { NavMain } from "@/components/sidebar/nav-main"
@@ -45,9 +49,9 @@ const data = {
       icon: UsersIcon,
     },
     {
-      title: "Conductores",
+      title: "Mecánicos",
       url: "/admin/drivers",
-      icon: IdCardLanyard,
+      icon: Wrench,
     },
     {
       title: "Settings",

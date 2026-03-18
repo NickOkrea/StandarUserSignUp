@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { getCurrentUser, getCurrentProfile } from "@/lib/services/auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Logout } from "../driver/components/Logout";
+import { Logout } from "../workshop/components/Logout";
 
 export default async function SalesPanel(){
     const { data: { user } } = await getCurrentUser();
@@ -29,7 +29,7 @@ export default async function SalesPanel(){
         <div className="w-full h-screen flex flex-col gap-10 items-center justify-between p-4">
             Panel de ventas
             <div className="">
-                <Link href="/sales/sale">
+                <Link href="/sales/add">
                     <Button>
                         + Agregar venta
                     </Button>

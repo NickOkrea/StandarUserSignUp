@@ -30,7 +30,7 @@ export default function TableComponent({ drivers }: TableComponentProps) {
                         {drivers.length === 0 ? (
                             <TableRow>
                                 <TableCell>
-                                    No hay conductores disponibles
+                                    No hay mecánicos disponibles
                                 </TableCell>
                             </TableRow>
                         ) : ( 
@@ -54,11 +54,11 @@ export default function TableComponent({ drivers }: TableComponentProps) {
                                                 <DropdownMenuSeparator/>
                                                 <DropdownMenuItem asChild>
                                                     <Link href={`/admin/drivers/edit/${driver.id}`}>
-                                                    Editar conductor
+                                                    Editar mecánico
                                                     </Link>
                                                 </DropdownMenuItem>
                                                 <DropdownMenuItem variant="destructive">
-                                                    Deshabilitar conductor
+                                                    Deshabilitar mecánico
                                                 </DropdownMenuItem>
                                             </DropdownMenuContent>
                                         </DropdownMenu>

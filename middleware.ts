@@ -38,17 +38,17 @@ export default async function middleware(request: NextRequest) {
 	const isAuthPage = request.nextUrl.pathname.startsWith("/auth/login") ||
 		request.nextUrl.pathname.startsWith("/auth/sign-up");
 	const isAdminPage = request.nextUrl.pathname.startsWith("/admin");
-	const isDriverPage = request.nextUrl.pathname.startsWith("/driver");
+	const isWorkshopPage = request.nextUrl.pathname.startsWith("/workshop");
 	const isSalesPage = request.nextUrl.pathname.startsWith("/sales");
 	const isDashboardPage = request.nextUrl.pathname.startsWith("/dashboard");
 
 	// Si no está autenticado y trata de acceder a páginas protegidas
-	if (!user && (isAdminPage || isDriverPage || isSalesPage || isDashboardPage)) {
+	if (!user && (isAdminPage || isWorkshopPage || isSalesPage || isDashboardPage)) {
 		return NextResponse.redirect(new URL("/auth/login", request.url));
 	}
 
 	// Si está autenticado y necesita verificación de rol (rutas protegidas o redirección desde auth)
-	if (user && (isAdminPage || isDriverPage || isSalesPage || isAuthPage)) {
+	if (user && (isAdminPage || isWorkshopPage || isSalesPage || isAuthPage)) {
 		// Buscamos el rol primero en los metadatos del usuario (¡Tiempo de respuesta 0ms extra!)
 		let rol = user.user_metadata?.rol;
 
@@ -64,22 +64,22 @@ export default async function middleware(request: NextRequest) {
 		}
 
 		// Protección de rutas por rol
-		if (isAdminPage || isDriverPage || isSalesPage) {
+		if (isAdminPage || isWorkshopPage || isSalesPage) {
 			// Vendedor: solo puede acceder a /sales
 			if (rol === "vendedor") {
-				if (isAdminPage || isDriverPage) {
+				if (isAdminPage || isWorkshopPage) {
 					return NextResponse.redirect(new URL("/sales", request.url));
 				}
 			}
-			// Chofer: solo puede acceder a /driver
+			// Chofer: solo puede acceder a /workshop
 			else if (rol === "chofer") {
 				if (isAdminPage || isSalesPage) {
-					return NextResponse.redirect(new URL("/driver", request.url));
+					return NextResponse.redirect(new URL("/workshop", request.url));
 				}
 			}
 			// Administrador: solo puede acceder a /admin
 			else if (rol === "administrador") {
-				if (isDriverPage || isSalesPage) {
+				if (isWorkshopPage || isSalesPage) {
 					return NextResponse.redirect(new URL("/admin", request.url));
 				}
 			}
@@ -94,7 +94,7 @@ export default async function middleware(request: NextRequest) {
 			if (rol === "administrador") {
 				return NextResponse.redirect(new URL("/admin", request.url));
 			} else if (rol === "chofer") {
-				return NextResponse.redirect(new URL("/driver", request.url));
+				return NextResponse.redirect(new URL("/workshop", request.url));
 			} else if (rol === "vendedor") {
 				return NextResponse.redirect(new URL("/sales", request.url));
 			}

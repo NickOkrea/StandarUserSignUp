@@ -1,11 +1,21 @@
+'use client'
+
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Signature from "@uiw/react-signature";
+import { useRef } from "react";
 
 export default function SalePage(){
+
+    const $svg = useRef<any>(null);
+    const handle = () => $svg.current?.clear();
+    
+
     return (
         <div className="w-full h-screen flex flex-col items-center p-3">
             <Card className="w-full">
@@ -244,10 +254,24 @@ export default function SalePage(){
                             <Badge>Comision</Badge>
                             <Card className="p-3 flex flex-col gap-2">
                                 <div className="flex flex-col gap-2">
-                                    <Field>
-                                        <FieldLabel>Firma del asesor</FieldLabel>
-                                        <Input placeholder="Firma del asesor"></Input>
+                                    <Field className="flex flex-col items-center">
+                                        <FieldLabel className="self-start">Firma del asesor</FieldLabel>
+                                        <Signature 
+                                            ref={$svg}
+                                            style={{
+                                                width: '100%',
+                                                height: '200px',
+                                                border: '1px solid #ccc',
+                                                borderRadius: '8px',
+                                                backgroundColor: '#f9fafb'
+                                            }}
+                                        />
+                                        <div className="flex gap-2">
+                                        <Button  type="button" onClick={handle}>Limpiar</Button>
+                                        <Button  type="submit">Continuar</Button>
+                                        </div>    
                                     </Field>
+                                    
                                 </div>
 
                             </Card>

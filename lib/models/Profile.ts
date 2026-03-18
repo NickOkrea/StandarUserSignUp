@@ -3,7 +3,7 @@
  * Corresponde a la estructura: profiles (id, email, rol)
  */
 
-export type RolType = 'administrador' | 'chofer' | 'usuario'
+export type RolType = 'administrador' | 'chofer' | 'vendedor'
 
 export interface Profile {
   id: string              // UUID - Coincide con auth.users.id
@@ -45,5 +45,5 @@ export interface InviteResponse {
  * Type guard para validar si un string es un RolType válido
  */
 export function isValidRol(rol: string): rol is RolType {
-  return ['administrador', 'chofer', 'usuario'].includes(rol)
+  return ['administrador', 'chofer', 'vendedor'].includes(rol)
 }

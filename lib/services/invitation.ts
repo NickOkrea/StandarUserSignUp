@@ -25,7 +25,7 @@ const ROLE_TABLES: Record<RolType, { table: string; fields: Record<string, any> 
       department: null
     }
   },
-  usuario: null // Los usuarios comunes no tienen tabla adicional
+  vendedor: null // Los vendedores no tienen tabla adicional
 }
 
 /**

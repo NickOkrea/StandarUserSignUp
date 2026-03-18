@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { resendInvitationAction } from '@/lib/services/invitationActions'
 
 export function ResendInviteButton({ userId, email }: { userId: string, email: string }) {
   const [loading, setLoading] = useState(false)
@@ -11,19 +12,13 @@ export function ResendInviteButton({ userId, email }: { userId: string, email: s
     setMessage('')
 
     try {
-      const res = await fetch('/api/profiles/resend-invite', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId })
-      })
+      const result = await resendInvitationAction(userId)
 
-      const data = await res.json()
-
-      if (res.ok) {
+      if (result.success) {
         setMessage('✅ Invitación reenviada')
         setTimeout(() => setMessage(''), 3000)
       } else {
-        setMessage(`❌ ${data.error}`)
+        setMessage(`❌ ${result.error}`)
       }
     } catch (error) {
       setMessage('❌ Error al reenviar')

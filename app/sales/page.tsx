@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Logout } from "./components/Logout";
-import Link from "next/link";
 import { getCurrentUser, getCurrentProfile } from "@/lib/services/auth";
+import Link from "next/link";
 import { redirect } from "next/navigation";
+import { Logout } from "../driver/components/Logout";
 
-export default async function DriverPanel(){
+export default async function SalesPanel(){
     const { data: { user } } = await getCurrentUser();
 
     // Verificar autenticación y rol
@@ -14,12 +14,12 @@ export default async function DriverPanel(){
 
     const { data: profile } = await getCurrentProfile(user.id);
     
-    // Solo choferes pueden acceder
-    if (profile?.rol !== 'chofer') {
+    // Solo vendedores pueden acceder
+    if (profile?.rol !== 'vendedor') {
         if (profile?.rol === 'administrador') {
             redirect('/admin');
-        } else if (profile?.rol === 'vendedor') {
-            redirect('/sales');
+        } else if (profile?.rol === 'chofer') {
+            redirect('/driver');
         } else {
             redirect('/auth/login');
         }
@@ -27,16 +27,16 @@ export default async function DriverPanel(){
 
     return (
         <div className="w-full h-screen flex flex-col gap-10 items-center justify-between p-4">
-            Panel de chofer
+            Panel de ventas
             <div className="">
-                <Link href="/driver/workshop">
+                <Link href="/sales/sale">
                     <Button>
-                        + Agregar moto a taller
+                        + Agregar venta
                     </Button>
                 </Link>
             </div>
             <div className="flex">
-            <Logout/>
+                <Logout/>
             </div>
         </div>
     )

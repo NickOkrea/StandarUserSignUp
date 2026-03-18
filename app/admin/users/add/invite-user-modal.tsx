@@ -7,6 +7,8 @@ import { RolType } from '@/lib/models/Profile'
 import { useState, useEffect } from 'react'
 import { getAgencies } from '@/lib/services/agency'
 import { Button } from '@/components/ui/button'
+import { InviteUserAction } from '@/lib/services/invitationActions'
+import { set } from 'zod'
 
 interface Agency {
   id: string
@@ -42,42 +44,35 @@ export function InviteUserModal() {
     }
   }
 
-  async function handleInvite(e: React.FormEvent) {
+  async function handleInvite(e: React.FormEvent){
     e.preventDefault()
     setLoading(true)
     setMessage('')
 
-    // Validar que se haya seleccionado una agencia
-    if (!agencyId) {
+    if(!agencyId){
       setMessage('❌ Debes seleccionar una agencia')
       setLoading(false)
       return
     }
 
-    try {
-      const res = await fetch('/api/profiles/invite', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          email,
-          rol: rol || undefined, // Solo enviar rol si se seleccionó
-          agency_id: agencyId
-        })
+    try{
+      const result = await InviteUserAction({
+        email,
+        rol: rol || undefined,
+        agency_id: agencyId
       })
 
-      const data = await res.json()
-
-      if (res.ok) {
+      if(result.success){
         setMessage('✅ Invitación enviada correctamente')
         setEmail('')
         setRol('')
         setAgencyId('')
         setTimeout(() => {
           setIsOpen(false)
-          window.location.reload() // Recargar para ver el nuevo perfil
+          window.location.reload()
         }, 1500)
-      } else {
-        setMessage(`❌ Error: ${data.error}`)
+      }else {
+        setMessage(`❌ Error: ${result.error}`)
       }
     } catch (error) {
       setMessage('❌ Error al enviar invitación')
@@ -126,7 +121,7 @@ export function InviteUserModal() {
                   <SelectContent>
                     <SelectItem value='administrador'>Administrador</SelectItem>
                     <SelectItem value='chofer'>Chofer</SelectItem>
-                    <SelectItem value='usuario'>Usuario</SelectItem>
+                    <SelectItem value='vendedor'>Vendedor</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

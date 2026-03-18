@@ -4,6 +4,7 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import { ThemeSwitcher } from "@/components/ui/theme-switcher";
 import { getAgencies } from "@/lib/services/agency";
 import { getCurrentUser, getCurrentProfile } from "@/lib/services/auth";
+import { redirect } from "next/navigation";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
 
@@ -12,12 +13,27 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         getCurrentUser()
     ]);
 
-    let currentAgencyId = "";
-    if (user) {
-        const { data: profile } = await getCurrentProfile(user.id);
-        if (profile?.agency_id) {
-            currentAgencyId = profile.agency_id;
+    // Verificar autenticación y rol
+    if (!user) {
+        redirect('/auth/login');
+    }
+
+    const { data: profile } = await getCurrentProfile(user.id);
+    
+    // Solo administradores pueden acceder
+    if (profile?.rol !== 'administrador') {
+        if (profile?.rol === 'vendedor') {
+            redirect('/sales');
+        } else if (profile?.rol === 'chofer') {
+            redirect('/driver');
+        } else {
+            redirect('/auth/login');
         }
+    }
+
+    let currentAgencyId = "";
+    if (profile?.agency_id) {
+        currentAgencyId = profile.agency_id;
     }
 
     return (

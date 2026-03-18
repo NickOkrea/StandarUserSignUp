@@ -42,7 +42,7 @@ CREATE TABLE public.profiles (
 |-------|------|-------------|
 | `id` | uuid | Identificador único (coincide con `auth.users.id`) |
 | `email` | text | Email del usuario |
-| `rol` | text | Rol del usuario (`administrador`, `chofer`, `usuario`) |
+| `rol` | text | Rol del usuario (`administrador`, `chofer`, `vendedor`) |
 
 ### `user_driver` (Extensión para Choferes)
 
@@ -119,7 +119,7 @@ CREATE TABLE public.user_admin (
 
 - **profiles → user_driver**: 1:1 (solo si `rol = 'chofer'`)
 - **profiles → user_admin**: 1:1 (solo si `rol = 'administrador'`)
-- **profiles con `rol = 'usuario'`**: Sin tabla adicional
+- **profiles con `rol = 'vendedor'`**: Sin tabla adicional
 
 ---
 
@@ -193,7 +193,7 @@ CREATE TABLE public.user_supervisor (
 #### 2. Actualizar tipo de rol (`lib/models/Profile.ts`)
 
 ```typescript
-export type RolType = 'administrador' | 'chofer' | 'usuario' | 'supervisor'
+export type RolType = 'administrador' | 'chofer' | 'vendedor' | 'supervisor'
 ```
 
 #### 3. Agregar configuración (`lib/services/invitation.ts`)

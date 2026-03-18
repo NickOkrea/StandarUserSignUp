@@ -6,7 +6,7 @@ export const inviteUserValidator = z.object({
         .string().email('Email inválido'),
     
     rol: z
-        .enum(['administrador', 'chofer', 'usuario'])
+        .enum(['administrador', 'chofer', 'vendedor'])
         .optional(),
     
     agency_id: z

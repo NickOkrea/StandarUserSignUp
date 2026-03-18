@@ -1,13 +1,11 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
@@ -480,41 +478,47 @@ export default function WorkshopPage(){
                     <TabsContent value="status">
                         <div className="flex items-center justify-center p-10 w-full">
                             <form>
-                                <dl className="grid grid-cols-1 gap-4 lg:grid-cols-4">
-                                    <Card className="p-6 relative">
-                                        <dt className="text-sm font-medium text-muted-foreground">Recepción de moto</dt>
-                                        <dd className="tabular-nums tabular-nums text-2xl font-semibold text-foreground">Moto recibida</dd>
-                                        <div className="group relative mt-6 flex items-center justify-center rounded">
-                                            <div className="flex items-center">
-                                                <Button>Enviar a reparación</Button>
+                                <dl className="grid grid-cols-1 gap-10 lg:grid-cols-4">
+                                    <div className="p-[1.5px] scale-105 rounded-xl bg-gradient-to-l from-green-800 to-transparent">
+                                        <Card className="p-6 relative bg-zinc-900/85 backdrop-blur-2xl border border-zinc-800/50">
+                                            <dt className="text-sm font-medium text-muted-foreground">Recepción de moto</dt>
+                                            <dd className="text-2xl font-semibold text-foreground">Moto recibida</dd>
+                                            <div className="mt-6 flex justify-center">
+                                            <Button>Enviar a reparación</Button>
                                             </div>
-                                        </div>    
-                                    </Card>
+                                        </Card>
+                                    </div>
+                                    
+                                    <div className="p-[1.5px] scale-105 rounded-xl bg-gradient-to-r from-red-900 to-transparent">
+                                        <Card className="p-6 relative bg-zinc-900/85 backdrop-blur-2xl border border-zinc-800/50">
+                                            <dt className="text-sm font-medium text-muted-foreground">Proceso de reparación</dt>
+                                            <dd className="tabular-nums tabular-nums text-2xl font-semibold text-foreground">En reparación</dd>
+                                            <div className="group relative mt-6 flex items-center justify-center rounded">
+                                                <div className="flex items-center">
+                                                    <Button>Marcar como lista</Button>
+                                                </div>
+                                            </div>    
+                                        </Card>
+                                    </div>
 
-                                    <Card className="p-6 relative">
-                                        <dt className="text-sm font-medium text-muted-foreground">Proceso de reparación</dt>
-                                        <dd className="tabular-nums tabular-nums text-2xl font-semibold text-foreground">En reparación</dd>
-                                        <div className="group relative mt-6 flex items-center justify-center rounded">
-                                            <div className="flex items-center">
-                                                <Button>Marcar como lista</Button>
-                                            </div>
-                                        </div>    
-                                    </Card>
+                                    <div className="p-[1.5px] rounded-xl bg-gradient-to-r from-red-900 to-transparent">
+                                        <Card className="p-6 relative bg-zinc-900/85 backdrop-blur-2xl border border-zinc-800/50">
+                                            <dt className="text-sm font-medium text-muted-foreground">Lista para entrega</dt>
+                                            <dd className="tabular-nums tabular-nums text-2xl font-semibold text-foreground">Por entregar</dd>
+                                            <div className="group relative mt-6 flex items-center justify-center rounded">
+                                                <div className="flex items-center">
+                                                    <Button>Confirmar entrega</Button>
+                                                </div>
+                                            </div>    
+                                        </Card>
+                                    </div>
 
-                                    <Card className="p-6 relative">
-                                        <dt className="text-sm font-medium text-muted-foreground">Lista para entrega</dt>
-                                        <dd className="tabular-nums tabular-nums text-2xl font-semibold text-foreground">Por entregar</dd>
-                                        <div className="group relative mt-6 flex items-center justify-center rounded">
-                                            <div className="flex items-center">
-                                                <Button>Confirmar entrega</Button>
-                                            </div>
-                                        </div>    
-                                    </Card>
-
-                                    <Card className="p-6 relative">
-                                        <dt className="text-sm font-medium text-muted-foreground">Entregada finalizada</dt>
-                                        <dd className="tabular-nums tabular-nums text-2xl font-semibold text-foreground">Moto entregada</dd>
-                                    </Card>
+                                    <div className="p-[1.5px] rounded-xl bg-gradient-to-r from-red-900 to-transparent">
+                                        <Card className="p-6 relative h-full bg-zinc-900/85 backdrop-blur-2xl border border-zinc-800/50">
+                                            <dt className="text-sm font-medium text-muted-foreground">Entregada finalizada</dt>
+                                            <dd className="tabular-nums tabular-nums text-2xl font-semibold text-foreground">Moto entregada</dd>
+                                        </Card>
+                                    </div>
 
                                 </dl>
                             </form>

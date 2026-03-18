@@ -34,6 +34,8 @@ export async function Login(_prevState: unknown, formData: FormData) {
         redirectTo = '/admin';
     } else if (rol === "chofer") {
         redirectTo = '/driver';
+    } else if (rol === "vendedor") {
+        redirectTo = '/sales';
     }
 
     return { success: true, redirectTo };

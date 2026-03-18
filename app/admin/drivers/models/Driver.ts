@@ -1,4 +1,4 @@
-export type RolType = 'administrador' | 'chofer' | 'usuario'
+export type RolType = 'administrador' | 'chofer' | 'vendedor'
 
 export interface Driver {
   id: string              // UUID - Coincide con auth.users.id

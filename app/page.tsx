@@ -39,7 +39,7 @@ export default function Home() {
     if (userRole === 'administrador') {
       router.push('/admin')
     } else if (userRole === 'chofer') {
-      router.push('/driver')
+      router.push('/workshop')
     } else {
       router.push('/dashboard')
     }
@@ -65,6 +65,9 @@ export default function Home() {
             <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
               Sistema de gestión de usuarios
             </p>
+          </div>
+          <div className="w-full">
+            <img src="/CF-MOTO-TEHUACAN.svg" alt="" />
           </div>
           <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
             {!loading && user ? (

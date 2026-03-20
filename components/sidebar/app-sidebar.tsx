@@ -2,20 +2,10 @@
 
 import * as React from "react"
 import {
-  AudioWaveform,
-  BookOpen,
-  Command,
-  GalleryVerticalEnd,
-  IdCardLanyard,
+  Handshake,
+  Motorbike,
   Settings2,
-  SquareTerminal,
-  ToolboxIcon,
-  ToolCase,
-  ToolCaseIcon,
-  User,
-  Users,
-  Users2,
-  Users2Icon,
+  ShieldUser,
   UsersIcon,
   Wrench,
 } from "lucide-react"
@@ -46,7 +36,7 @@ const data = {
     {
       title: "Usuarios",
       url: "/admin/users",
-      icon: UsersIcon,
+      icon: ShieldUser,
     },
     {
       title: "Mecánicos",
@@ -54,11 +44,16 @@ const data = {
       icon: Wrench,
     },
     {
-      title: "Settings",
-      url: "/admin",
-      icon: Settings2,
-      
+      title: "Vendedores",
+      url: "/admin/sales-agent",
+      icon: Handshake,
     },
+    {
+      title: "Motocicletas",
+      url: "/admin/motorcycles",
+      icon: Motorbike,
+
+    }
   ],
 }
 

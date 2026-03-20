@@ -197,8 +197,6 @@ export default function SalePage(){
                                     </TabsContent>
                                 </Tabs>
 
-
-
                                 {/* <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
 
                                     <Card className="p-4 shadow-2xs">

@@ -27,6 +27,14 @@ export async function Login(_prevState: unknown, formData: FormData) {
     
     const rol = profile?.rol;
 
+    // 🚀 Guardar el rol en user_metadata para acceso rápido en el middleware
+    // Esto elimina la necesidad de consultas adicionales a la BD en cada request
+    if (rol) {
+        await supabase.auth.updateUser({
+            data: { rol }
+        });
+    }
+
     // ✅ Devolver la ruta en lugar de hacer redirect
     // Esto evita esperar a que el layout del admin se cargue
     let redirectTo = '/dashboard';

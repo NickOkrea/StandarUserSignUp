@@ -15,6 +15,16 @@ import { Textarea } from "@/components/ui/textarea";
 
 
 export default function WorkshopPage(){
+
+
+    const fuelOptions = [
+        { value: "vacio", label: "Vacío", img: "/tanquevacio.png", selected: "bg-red-800" },
+        { value: "1/4", label: "1/4", img: "/tanque1-4.png" },
+        { value: "1/2", label: "1/2", img: "/tanque1-2.png" },
+        { value: "3/4", label: "3/4", img: "/tanque3-4.png" },
+        { value: "lleno", label: "Lleno", img: "/tanquelleno.png" },
+    ];
+
     return (
         <div className="w-full h-screen flex flex-col gap-10 items-center p-3">
             <Card className="w-full">
@@ -89,104 +99,84 @@ export default function WorkshopPage(){
                                     <Badge variant="secondary">Inventario</Badge>
                                     <div className="grid grid-cols-1 gap-2 lg:grid-cols-3">
 
-                                        <Card className="p-3 col-span-3 lg:col-span-1">
+                                        <Card className="p-3 col-span-3 lg:col-span-1 gap-3">
                                             <Field orientation="horizontal">
                                                 <FieldLabel>Espejos</FieldLabel>
 
-                                                <RadioGroup className="flex justify-evenly">
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>Si</Label>
-                                                        <RadioGroupItem value="si"/>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>No</Label>
-                                                        <RadioGroupItem value="no"/>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>Dañado</Label>
-                                                        <RadioGroupItem value="dañado"/>
-                                                    </div>
-                                                </RadioGroup>
-                                                
+                                                <Select>
+                                                    <SelectTrigger className="w-[140px]">
+                                                        <SelectValue placeholder="Seleccionar"/>
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem value="si">Si</SelectItem>
+                                                        <SelectItem value="no">No</SelectItem>
+                                                        <SelectItem value="dañado">Dañado</SelectItem>
+                                                    </SelectContent>
+                                                </Select>  
+
                                             </Field>
 
                                             <Field orientation="horizontal">
                                                 <FieldLabel>Stop trasero</FieldLabel>
 
-                                                <RadioGroup className="flex justify-evenly">
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>Si</Label>
-                                                        <RadioGroupItem value="si"/>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>No</Label>
-                                                        <RadioGroupItem value="no"/>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>Dañado</Label>
-                                                        <RadioGroupItem value="dañado"/>
-                                                    </div>
-                                                </RadioGroup>
+                                                <Select>
+                                                    <SelectTrigger className="w-[140px]">
+                                                        <SelectValue placeholder="Seleccionar"/>
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem value="si">Si</SelectItem>
+                                                        <SelectItem value="no">No</SelectItem>
+                                                        <SelectItem value="dañado">Dañado</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
                                                 
                                             </Field>
 
                                             <Field orientation="horizontal">
                                                 <FieldLabel>Cubiertas</FieldLabel>
 
-                                                <RadioGroup className="flex justify-evenly">
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>Si</Label>
-                                                        <RadioGroupItem value="si"/>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>No</Label>
-                                                        <RadioGroupItem value="no"/>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>Dañado</Label>
-                                                        <RadioGroupItem value="dañado"/>
-                                                    </div>
-                                                </RadioGroup>
+                                                <Select>
+                                                    <SelectTrigger className="w-[140px]">
+                                                        <SelectValue placeholder="Seleccionar"/>
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem value="si">Si</SelectItem>
+                                                        <SelectItem value="no">No</SelectItem>
+                                                        <SelectItem value="dañado">Dañado</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
                                                 
                                             </Field>
 
                                             <Field orientation="horizontal">
                                                 <FieldLabel>Tacometros</FieldLabel>
 
-                                                <RadioGroup className="flex justify-evenly">
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>Si</Label>
-                                                        <RadioGroupItem value="si"/>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>No</Label>   
-                                                        <RadioGroupItem value="no"/>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>Dañado</Label>
-                                                        <RadioGroupItem value="dañado"/>
-                                                    </div>
-                                                </RadioGroup>
+                                                <Select>
+                                                    <SelectTrigger className="w-[140px]">
+                                                        <SelectValue placeholder="Seleccionar"/>
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem value="si">Si</SelectItem>
+                                                        <SelectItem value="no">No</SelectItem>
+                                                        <SelectItem value="dañado">Dañado</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
                                                 
                                             </Field>
 
                                             <Field orientation="horizontal">
                                                 <FieldLabel>Claxon</FieldLabel>
 
-                                                <RadioGroup className="flex justify-evenly">
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>Si</Label>
-                                                        <RadioGroupItem value="si"/>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>No</Label>
-                                                        <RadioGroupItem value="no"/>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>Dañado</Label>
-                                                        <RadioGroupItem value="dañado"/>
-                                                    </div>
-                                                </RadioGroup>
+                                                <Select>
+                                                    <SelectTrigger className="w-[140px]">
+                                                        <SelectValue placeholder="Seleccionar"/>
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem value="si">Si</SelectItem>
+                                                        <SelectItem value="no">No</SelectItem>
+                                                        <SelectItem value="dañado">Dañado</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
                                                 
                                             </Field>
 
@@ -345,28 +335,25 @@ export default function WorkshopPage(){
                                         <Card className="p-3">
                                             <Field>
                                                 <FieldLabel>Nivel de gasolina del tanque</FieldLabel>
-                                                <RadioGroup className="flex justify-evenly">
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>Vacio</Label>
-                                                        <RadioGroupItem value="vacio"/>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>1/4</Label>
-                                                        <RadioGroupItem value="1/4"/>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>1/2</Label>
-                                                        <RadioGroupItem value="1/2"/>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>3/4</Label>
-                                                        <RadioGroupItem value="3/4"/>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <Label>Lleno</Label>
-                                                        <RadioGroupItem value="lleno"/>
-                                                    </div>
-                                                </RadioGroup>
+            
+                                                <RadioGroup className="grid grid-cols-5">
+                                                    {fuelOptions.map((option) => (
+                                                        <Label
+                                                            key={option.value}
+                                                            className="cursor-pointer flex justify-center"
+                                                        >
+                                                            <RadioGroupItem
+                                                                value={option.value}
+                                                                className="peer invisible absolute"
+                                                            />
+                                                            <div className="flex flex-col items-center justify-center w-full h-24 lg:w-24 border rounded-md 
+                                                                            peer-data-[state=checked]:bg-primary/20">
+                                                                <span>{option.label}</span>
+                                                                <img src={option.img} alt={option.label} className="w-14 h-14 object-contain" />
+                                                            </div>
+                                                        </Label>
+                                                    ))}
+                                                    </RadioGroup>
                                             </Field>
                                         </Card>
                                     </div>
@@ -479,8 +466,8 @@ export default function WorkshopPage(){
                         <div className="flex items-center justify-center p-10 w-full">
                             <form>
                                 <dl className="grid grid-cols-1 gap-10 lg:grid-cols-4">
-                                    <div className="p-[1.5px] scale-105 rounded-xl bg-gradient-to-l from-green-800 to-transparent">
-                                        <Card className="p-6 relative bg-zinc-900/85 backdrop-blur-2xl border border-zinc-800/50">
+                                    <div className="p-[1.5px] scale-105 rounded-xl bg-gradient-to-l dark:from-green-800 from-green-300 to-transparent">
+                                        <Card className="p-6 relative dark:bg-zinc-900/85 bg-zinc-900/5 backdrop-blur-2xl border dark:border-zinc-800/50 border-zinc-800/5">
                                             <dt className="text-sm font-medium text-muted-foreground">Recepción de moto</dt>
                                             <dd className="text-2xl font-semibold text-foreground">Moto recibida</dd>
                                             <div className="mt-6 flex justify-center">
@@ -489,8 +476,8 @@ export default function WorkshopPage(){
                                         </Card>
                                     </div>
                                     
-                                    <div className="p-[1.5px] scale-105 rounded-xl bg-gradient-to-r from-red-900 to-transparent">
-                                        <Card className="p-6 relative bg-zinc-900/85 backdrop-blur-2xl border border-zinc-800/50">
+                                    <div className="p-[1.5px] scale-105 rounded-xl bg-gradient-to-r dark:from-red-900 from-red-300 to-transparent">
+                                        <Card className="p-6 relative dark:bg-zinc-900/85 bg-zinc-900/5 backdrop-blur-2xl border dark:border-zinc-800/50 border-zinc-800/5">
                                             <dt className="text-sm font-medium text-muted-foreground">Proceso de reparación</dt>
                                             <dd className="tabular-nums tabular-nums text-2xl font-semibold text-foreground">En reparación</dd>
                                             <div className="group relative mt-6 flex items-center justify-center rounded">
@@ -501,8 +488,8 @@ export default function WorkshopPage(){
                                         </Card>
                                     </div>
 
-                                    <div className="p-[1.5px] rounded-xl bg-gradient-to-r from-red-900 to-transparent">
-                                        <Card className="p-6 relative bg-zinc-900/85 backdrop-blur-2xl border border-zinc-800/50">
+                                    <div className="p-[1.5px] rounded-xl bg-gradient-to-r dark:from-red-900 from-red-300 to-transparent">
+                                        <Card className="p-6 relative h-full dark:bg-zinc-900/85 bg-zinc-900/5 backdrop-blur-2xl border dark:border-zinc-800/50 border-zinc-800/5">
                                             <dt className="text-sm font-medium text-muted-foreground">Lista para entrega</dt>
                                             <dd className="tabular-nums tabular-nums text-2xl font-semibold text-foreground">Por entregar</dd>
                                             <div className="group relative mt-6 flex items-center justify-center rounded">
@@ -513,8 +500,8 @@ export default function WorkshopPage(){
                                         </Card>
                                     </div>
 
-                                    <div className="p-[1.5px] rounded-xl bg-gradient-to-r from-red-900 to-transparent">
-                                        <Card className="p-6 relative h-full bg-zinc-900/85 backdrop-blur-2xl border border-zinc-800/50">
+                                    <div className="p-[1.5px] rounded-xl bg-gradient-to-r dark:from-red-900 from-red-300 to-transparent">
+                                        <Card className="p-6 relative h-full dark:bg-zinc-900/85 bg-zinc-900/5 backdrop-blur-2xl border dark:border-zinc-800/50 border-zinc-800/5">
                                             <dt className="text-sm font-medium text-muted-foreground">Entregada finalizada</dt>
                                             <dd className="tabular-nums tabular-nums text-2xl font-semibold text-foreground">Moto entregada</dd>
                                         </Card>

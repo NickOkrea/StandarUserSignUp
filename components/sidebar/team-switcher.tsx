@@ -47,8 +47,17 @@ export function TeamSwitcher({agencies, currentAgencyId}: TeamSwitcherProps) {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                <Warehouse className="size-4" />
+              <div className="text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-md border border-muted-foreground ">
+                {/* <Warehouse className="size-4" /> */}
+                {activeTeam.name.toLowerCase().includes("susuki") && (
+                  <img src="/LogoSusuki.svg" alt="Susuki" className="w-full h-full p-1 shrink-0" />
+                )}
+                {activeTeam.name.toLowerCase().includes("bajaj") && (
+                  <img src="/LogoBajaj.svg" alt="Bajaj" className="w-full h-full p-1 shrink-0" />
+                )}
+                {!activeTeam.name.toLowerCase().includes("susuki") && !activeTeam.name.toLowerCase().includes("bajaj") && (
+                  <Warehouse className="size-3.5 shrink-0" />
+                )}
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{activeTeam.name}</span>
@@ -89,11 +98,23 @@ export function TeamSwitcher({agencies, currentAgencyId}: TeamSwitcherProps) {
                 }}
                 className={`gap-2 p-2 ${activeTeam.id === agency.id ? "bg-sidebar-accent text-sidebar-accent-foreground" : ""}`}
               >
-                <div className="flex size-6 items-center justify-center rounded-md border">
-                  <Warehouse className="size-3.5 shrink-0" />
+                <div className="flex flex-col gap-2">
+                  <div className="flex justify-between ">
+                    <span className="text-xs text-muted-foreground">Agencia</span>
+                    {agency.name}
+                  </div>
+                  <div className="flex size- items-center justify-center rounded-md border bg-white">
+                    {agency.name.toLowerCase().includes("susuki") && (
+                      <img src="/Susuki.svg" alt="Susuki" className="w-full h-full p-1 shrink-0" />
+                    )}
+                    {agency.name.toLowerCase().includes("bajaj") && (
+                      <img src="/Bajaj.svg" alt="Bajaj" className="w-full h-full p-1 shrink-0" />
+                    )}
+                    {!agency.name.toLowerCase().includes("susuki") && !agency.name.toLowerCase().includes("bajaj") && (
+                      <Warehouse className="size-3.5 shrink-0" />
+                    )}
+                  </div>
                 </div>
-                {agency.name}
-                <span className="text-xs text-muted-foreground">Agencia</span>
               </DropdownMenuItem>
             ))}
             

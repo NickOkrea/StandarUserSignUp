@@ -24,7 +24,7 @@ export default function LoginPage() {
         <img
           src="/CF-MOTO-TEHUACAN.svg"
           alt="Image"
-          className="w-full h-full object-contain dark:brightness-[0.5] dark:grayscale"
+          className="w-full h-full object-contain dark:brightness-[0.5] grayscale"
         />
       </div>
     </div>

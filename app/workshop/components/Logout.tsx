@@ -19,7 +19,7 @@ export function Logout(){
     return (
         <div className="flex flex-row gap-2" onClick={handleLogout}>
             <LogOut className="h-6 w-6" />
-             Logout
+             Cerrar sesión
         </div>
     )
 }

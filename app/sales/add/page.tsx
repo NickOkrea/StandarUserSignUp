@@ -24,7 +24,7 @@ export default function SalePage(){
 
                         <div className="flex flex-col gap-2">
                             <Badge>General</Badge>
-                            <Card className="p-3 flex items-end">
+                            <Card className="bg-white/50 dark:bg-black/50 p-3 flex items-end">
                                     <div className="w-3/4 flex flex-col gap-2 lg:flex-row lg:w-1/2">
                                         <Field>
                                             <FieldLabel>Folio de venta</FieldLabel>
@@ -40,7 +40,7 @@ export default function SalePage(){
 
                         <div className="flex flex-col gap-2">
                             <Badge>Cliente</Badge>
-                            <Card className="p-3 flex flex-col gap-2 lg:flex-row">
+                            <Card className="bg-white/50 dark:bg-black/50 p-3 flex flex-col gap-2 lg:flex-row">
                                 <Field>
                                     <FieldLabel>Nombre del cliente</FieldLabel>
                                     <Input placeholder="Nombre Cliente"></Input>
@@ -54,7 +54,7 @@ export default function SalePage(){
 
                         <div className="flex flex-col gap-2">
                             <Badge>Producto</Badge>
-                            <Card className="p-3 flex flex-col gap-2">
+                            <Card className="bg-white/50 dark:bg-black/50 p-3 flex flex-col gap-2">
                                 <div className="flex flex-col gap-2 justify-evenly lg:flex-row">
                                     <Field> 
                                         <FieldLabel>Motocicleta</FieldLabel>
@@ -62,6 +62,11 @@ export default function SalePage(){
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Selecciona una motocicleta" />    
                                             </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="moto1">Motocicleta 1</SelectItem>
+                                                <SelectItem value="moto2">Motocicleta 2</SelectItem>
+                                                <SelectItem value="moto3">Motocicleta 3</SelectItem>
+                                            </SelectContent>
                                         </Select>
                                     </Field>
                                     <Field>
@@ -74,7 +79,7 @@ export default function SalePage(){
                                     </Field>
                                 </div>
                                 <div className="flex justify-end">
-                                    <Card className="w-3/4 flex flex-row justify-center lg:w-1/5">
+                                    <Card className="bg-white/50 dark:bg-black/50 w-3/4 flex flex-row justify-center lg:w-1/5">
                                         <div className="flex flex-col items-end">
                                             <h3>Subtotal:</h3>
                                             <h3>IVA:</h3>
@@ -103,7 +108,7 @@ export default function SalePage(){
                                         <TabsTrigger value="financiado">Financiado</TabsTrigger>
                                     </TabsList>
 
-                                    <TabsContent value="contado">
+                                    <TabsContent className="bg-white/50 dark:bg-black/50 rounded-2xl" value="contado">
                                         <form action="">
                                                 <div className="p-3 flex flex-col gap-2">
                                                     <Badge>Tipo de pago</Badge>
@@ -125,7 +130,7 @@ export default function SalePage(){
                                                 </div>
                                         </form>
                                     </TabsContent>
-                                    <TabsContent value="apartado">
+                                    <TabsContent className="bg-white/50 dark:bg-black/50 rounded-2xl" value="apartado">
                                             <form action="">
                                                 <div className="p-3 flex flex-col gap-2">
                                                     <Badge>Datos de apartado</Badge>
@@ -143,7 +148,7 @@ export default function SalePage(){
 
                                             </form>
                                     </TabsContent>
-                                    <TabsContent value="credito">
+                                    <TabsContent className="bg-white/50 dark:bg-black/50 rounded-2xl" value="credito">
                                         <form action="">
                                                 <div className="p-3 flex flex-col gap-2">
                                                     <Badge>Entidad financiera</Badge>
@@ -166,7 +171,7 @@ export default function SalePage(){
 
                                         </form>
                                     </TabsContent>
-                                    <TabsContent value="financiado">
+                                    <TabsContent className="bg-white/50 dark:bg-black/50 rounded-2xl" value="financiado">
                                             <form action="">
                                                 <div className="p-3 flex flex-col gap-2">
                                                     <Badge>Financiera</Badge>

@@ -85,7 +85,7 @@ export function InviteUserModal() {
     <>
       <Button
         onClick={() => setIsOpen(true)}
-        className="px-4 py-2 rounded-lg"
+        className="px-4 py-2 rounded-lg bg-primary"
       >
         Invitar Usuario
       </Button>

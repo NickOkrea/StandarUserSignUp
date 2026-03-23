@@ -27,7 +27,9 @@ export default async function SalesPanel(){
 
     return (
         <div className="w-full h-screen flex flex-col gap-10 items-center justify-between p-4">
-            Panel de ventas
+            <h1 className="text-3xl">
+                Panel de ventas
+            </h1>
             <div className="">
                 <Link href="/sales/add">
                     <Button>

@@ -1,3 +1,5 @@
+"use client"
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -9,6 +11,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
+import Signature from "@uiw/react-signature";
+import { useRef } from "react";
 
 
 
@@ -24,6 +28,12 @@ export default function WorkshopPage(){
         { value: "3/4", label: "3/4", img: "/tanque3-4.png" },
         { value: "lleno", label: "Lleno", img: "/tanquelleno.png" },
     ];
+
+    const $svg1 = useRef<any>(null);
+    const handle1 = () => $svg1.current?.clear();
+
+    const $svg2 = useRef<any>(null);
+    const handle2 = () => $svg2.current?.clear();
 
     return (
         <div className="w-full h-screen flex flex-col gap-10 items-center p-3">
@@ -48,7 +58,7 @@ export default function WorkshopPage(){
 
                                 <div className="flex flex-col gap-2">
                                     <Badge variant="secondary">Folio</Badge>
-                                    <Card className="p-3 flex flex-row justify-end">   
+                                    <Card className="bg-white/50 dark:bg-black/50 p-3 flex flex-row justify-end">   
                                         <Field className="w-full lg:w-1/3">
                                             <Input placeholder="No folio automatico" readOnly/>
                                         </Field>   
@@ -57,7 +67,7 @@ export default function WorkshopPage(){
 
                                 <div className="flex flex-col gap-2">
                                     <Badge variant="secondary">Cliente</Badge>
-                                    <Card className="p-3 flex flex-col gap-2 lg:flex-row">
+                                    <Card className="bg-white/50 dark:bg-black/50 p-3 flex flex-col gap-2 lg:flex-row">
                                         <Field>
                                             <FieldLabel>Nombre</FieldLabel>
                                             <Input placeholder="nombre del cliente"></Input>
@@ -71,7 +81,7 @@ export default function WorkshopPage(){
                                 
                                 <div className="flex flex-col gap-2">
                                     <Badge variant="secondary">Moto</Badge>
-                                    <Card className="p-3 flex flex-col gap-2 lg:flex-row">
+                                    <Card className="bg-white/50 dark:bg-black/50 p-3 flex flex-col gap-2 lg:flex-row">
                                         <Field>
                                             <FieldLabel>Color</FieldLabel>
                                             <Input placeholder="color de la moto"></Input>
@@ -99,7 +109,7 @@ export default function WorkshopPage(){
                                     <Badge variant="secondary">Inventario</Badge>
                                     <div className="grid grid-cols-1 gap-2 lg:grid-cols-3">
 
-                                        <Card className="p-3 col-span-3 lg:col-span-1 gap-3">
+                                        <Card className="bg-white/50 dark:bg-black/50 p-3 col-span-3 lg:col-span-1 gap-3">
                                             <Field orientation="horizontal">
                                                 <FieldLabel>Espejos</FieldLabel>
 
@@ -182,7 +192,7 @@ export default function WorkshopPage(){
 
                                         </Card>
 
-                                        <Card className="p-3 col-span-3 lg:col-span-1 gap-3">
+                                        <Card className="bg-white/50 dark:bg-black/50 p-3 col-span-3 lg:col-span-1 gap-3">
                                             <Field orientation="horizontal">
                                                 <FieldLabel>Asientos</FieldLabel>
                                                 <Select>
@@ -259,7 +269,7 @@ export default function WorkshopPage(){
                                             </Field>
                                         </Card>
 
-                                        <Card className="p-3 col-span-3 lg:col-span-1 gap-3">
+                                        <Card className="bg-white/50 dark:bg-black/50 p-3 col-span-3 lg:col-span-1 gap-3">
 
                                             <Field orientation="horizontal" className="justify-between">
                                                 <FieldLabel>Faro delantero</FieldLabel>
@@ -332,7 +342,7 @@ export default function WorkshopPage(){
                                 <div className="flex flex-col gap-2">     
                                     <Badge variant="secondary">Gasolina</Badge>
                                     <div className="grid grid-cols-1 gap-2">
-                                        <Card className="p-3">
+                                        <Card className="bg-white/50 dark:bg-black/50 p-3">
                                             <Field>
                                                 <FieldLabel>Nivel de gasolina del tanque</FieldLabel>
             
@@ -362,7 +372,7 @@ export default function WorkshopPage(){
                                 <div className="flex flex-col gap-2">
                                     <Badge variant="secondary">Observaciones</Badge>
                                     <div className="grid grid-cols-1 gap-2">
-                                        <Card className="p-3">
+                                        <Card className="bg-white/50 dark:bg-black/50 p-3">
                                             <Field>
                                                 <FieldLabel>Observaciones</FieldLabel>
                                                 <Input placeholder="observaciones estado de la moto"></Input>
@@ -374,7 +384,7 @@ export default function WorkshopPage(){
                                 <div className="flex flex-col gap-2">
                                     <Badge variant="secondary">Diagnostico</Badge>
                                     <div className="grid grid-cols-1 gap-2">
-                                        <Card className="p-3">
+                                        <Card className="bg-white/50 dark:bg-black/50 p-3">
                                             <Field>
                                                 <FieldLabel>Reparación Solicitado</FieldLabel>
                                                 <Textarea placeholder="reparacion solicitada por el cliente"></Textarea>
@@ -393,7 +403,7 @@ export default function WorkshopPage(){
                                 <div className="flex flex-col gap-2">
                                     <Badge variant="secondary">Piezas</Badge>
                                     <div className="grid grid-cols-1 gap-2">
-                                        <Card className="p-3">
+                                        <Card className="bg-white/50 dark:bg-black/50 p-3">
                                             <Field>
                                                 <FieldLabel>Piezas solicitadas</FieldLabel>
                                                 <Textarea placeholder="piezas solicitadas para la reparación"></Textarea>
@@ -415,7 +425,7 @@ export default function WorkshopPage(){
                                 <div className="flex flex-col gap-2">
                                     <Badge variant="secondary">Revisión</Badge>
                                     <div className="flex flex-col gap-2">
-                                        <Card className="p-3">
+                                        <Card className="bg-white/50 dark:bg-black/50 p-3">
                                             <Field>
                                                 <FieldLabel>Costo de la revisión</FieldLabel>
                                                 <Input placeholder="costo revisión"></Input>
@@ -434,7 +444,7 @@ export default function WorkshopPage(){
                                 <div className="flex flex-col gap-2">
                                     <Badge variant="secondary">Fechas</Badge>
                                     <div className="grid grid-cols-1 gap-2">
-                                        <Card className="p-3 flex flex-col lg:flex-row">
+                                        <Card className="bg-white/50 dark:bg-black/50 p-3 flex flex-col lg:flex-row">
                                             <Field className="lg:w-1/2">
                                                 <FieldLabel>Fecha recepcion de moto</FieldLabel>
                                                 <Input placeholder="fecha de recepcion de moto automatica"></Input>
@@ -446,14 +456,38 @@ export default function WorkshopPage(){
                                 <div className="flex flex-col gap-2">
                                     <Badge variant="secondary">Aprobación</Badge>
                                     <div className="grid grid-cols-1 gap-2">
-                                        <Card className="p-3 flex flex-col lg:flex-row">
+                                        <Card className="bg-white/50 dark:bg-black/50 p-3 flex flex-col lg:flex-row">
                                             <Field>
                                                 <FieldLabel>Firma prestador servicio</FieldLabel>
-                                                <Input placeholder="firma del prestador de servicio"></Input>
+                                                <Signature
+                                                    ref={$svg1}
+                                                    style={{
+                                                        width: '100%',
+                                                        height: '200px',
+                                                        border: '1px solid #000',
+                                                        borderRadius: '8px',
+                                                        backgroundColor: '#f9fafb',
+                                                    }}
+                                                />
+                                                <Button type="button"  variant="outline" onClick={handle1} className="mt-2">
+                                                    Limpiar firma
+                                                </Button>
                                             </Field>
                                             <Field>
                                                 <FieldLabel>Firma cliente</FieldLabel>
-                                                <Input placeholder="firma del cliente"></Input>
+                                                <Signature
+                                                    ref={$svg2}
+                                                    style={{
+                                                        width: '100%',
+                                                        height: '200px',
+                                                        border: '1px solid #000',
+                                                        borderRadius: '8px',
+                                                        backgroundColor: '#f9fafb',
+                                                    }}
+                                                />
+                                                <Button type="button"  variant="outline" onClick={handle2} className="mt-2">
+                                                    Limpiar firma
+                                                </Button>
                                             </Field>
                                         </Card>
                                     </div>
@@ -463,8 +497,9 @@ export default function WorkshopPage(){
                     </TabsContent>
 
                     <TabsContent value="status">
-                        <div className="flex items-center justify-center p-10 w-full">
-                            <form>
+                        <div className="flex items-center justify-center w-full">
+                            <form className="w-full">
+                                <Card className="bg-white/50 dark:bg-black/50 p-5">
                                 <dl className="grid grid-cols-1 gap-10 lg:grid-cols-4">
                                     <div className="p-[1.5px] scale-105 rounded-xl bg-gradient-to-l dark:from-green-800 from-green-300 to-transparent">
                                         <Card className="p-6 relative dark:bg-zinc-900/85 bg-zinc-900/5 backdrop-blur-2xl border dark:border-zinc-800/50 border-zinc-800/5">
@@ -476,7 +511,7 @@ export default function WorkshopPage(){
                                         </Card>
                                     </div>
                                     
-                                    <div className="p-[1.5px] scale-105 rounded-xl bg-gradient-to-r dark:from-red-900 from-red-300 to-transparent">
+                                    <div className="p-[1.5px] rounded-xl bg-gradient-to-r dark:from-red-900 from-red-300 to-transparent">
                                         <Card className="p-6 relative dark:bg-zinc-900/85 bg-zinc-900/5 backdrop-blur-2xl border dark:border-zinc-800/50 border-zinc-800/5">
                                             <dt className="text-sm font-medium text-muted-foreground">Proceso de reparación</dt>
                                             <dd className="tabular-nums tabular-nums text-2xl font-semibold text-foreground">En reparación</dd>
@@ -506,8 +541,8 @@ export default function WorkshopPage(){
                                             <dd className="tabular-nums tabular-nums text-2xl font-semibold text-foreground">Moto entregada</dd>
                                         </Card>
                                     </div>
-
                                 </dl>
+                                </Card>
                             </form>
                         </div>
 
@@ -520,7 +555,7 @@ export default function WorkshopPage(){
                                 <div className="flex flex-col gap-2">
                                     <Badge variant="secondary">Finalizar entrega</Badge>
                                     <div className="grid grid-cols-1 gap-2">
-                                        <Card className="p-3 flex flex-col lg:flex-row">
+                                        <Card className="bg-white/50 dark:bg-black/50 p-3 flex flex-col lg:flex-row">
                                             <Field>
                                                 <FieldLabel>Recibo cliente</FieldLabel>
                                                 <Input placeholder="recibo del cliente"></Input>

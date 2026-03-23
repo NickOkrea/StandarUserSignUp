@@ -86,7 +86,7 @@ export default function DriverForm({ driver }: DriverFormProps) {
     return (
         <Card>
             <CardContent className="flex flex-col p-2 gap-4"> 
-                <Card>
+                <Card className="bg-white/80 dark:bg-black/50 backdrop-blur-2xl">
                     <CardTitle className="px-5">
                         <FieldDescription className="flex gap-2 items-center">
                             <AlertCircle className="h-4 w-4"/>
@@ -110,7 +110,7 @@ export default function DriverForm({ driver }: DriverFormProps) {
                     </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="bg-white/80 dark:bg-black/50 backdrop-blur-2xl">
                     <CardContent>
                         <form onSubmit={handleSubmit}>
                             <div className="flex flex-col gap-3">

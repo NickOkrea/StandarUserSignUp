@@ -5,6 +5,8 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import AuthHandler from "@/components/auth-handler"
 import { createClient } from "@/lib/supabase/client"
+import { Button } from "@/components/ui/button"
+import { LogIn, MonitorCheckIcon } from "lucide-react"
 
 export default function Home() {
   const router = useRouter()
@@ -63,7 +65,7 @@ export default function Home() {
               Bienvenido
             </h1>
             <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-              Sistema de gestión de usuarios
+              Demo sistema de gestión de usuarios
             </p>
           </div>
           <div className="w-full">
@@ -71,33 +73,23 @@ export default function Home() {
           </div>
           <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
             {!loading && user ? (
-              <button
+              <Button
                 onClick={handleDashboardClick}
-                className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[200px]"
+                className="flex h-12 w-full items-center justify-center gap-2 "
               >
-                <Image
-                  className="dark:invert"
-                  src="/vercel.svg"
-                  alt="Vercel logomark"
-                  width={16}
-                  height={16}
-                />
+                <MonitorCheckIcon className="size-4" />
                 Ir al Panel
-              </button>
+              </Button>
             ) : (
+              <Button>
               <a
-                className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
+                className="flex h-12 w-full items-center justify-center gap-2"
                 href="/auth/login"
               >
-                <Image
-                  className="dark:invert"
-                  src="/vercel.svg"
-                  alt="Vercel logomark"
-                  width={16}
-                  height={16}
-                />
+                <LogIn className="size-4" />
                 Iniciar Sesión
               </a>
+              </Button>
             )}
           </div>
         </main>

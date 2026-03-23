@@ -85,7 +85,7 @@ export default function MotorcycleTable() {
                                                 <DropdownMenuLabel>Acciones</DropdownMenuLabel>
                                                 <DropdownMenuSeparator/>
                                                 <DropdownMenuItem asChild>
-                                                    <Link href={`/admin/motorcycles/edit/${motorcycle.id}`}>
+                                                    <Link href={`/admin/motorcycles/add/`}>
                                                     Editar motocicleta
                                                     </Link>
                                                 </DropdownMenuItem>
